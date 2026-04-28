@@ -7,12 +7,14 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -83,13 +85,22 @@ class MainActivity : ComponentActivity() {
                                 fontWeight = FontWeight.Bold,
                                 textAlign = TextAlign.Center
                             )
-                            BreedsList(
-                                data = breedsData,
-                                onItemClick = { breed ->
-                                    selectedBreed = breed
-                                    showDetail = true
+                            if (breedsData.isEmpty()) {
+                                Box(
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    CircularProgressIndicator()
                                 }
-                            )
+                            } else {
+                                BreedsList(
+                                    data = breedsData,
+                                    onItemClick = { breed ->
+                                        selectedBreed = breed
+                                        showDetail = true
+                                    }
+                                )
+                            }
                         }
                     }
                 }
